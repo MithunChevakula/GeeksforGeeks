@@ -3,19 +3,12 @@
 class Solution:
     def armstrongNumber (self, n):
         # code here
-        count=0
-        n2=n
-        sum=0
         temp=n
-        while n>0: 
-            n=n//10
-            count+=1
-        while n2>0:
-            rem=n2%10
-            sum+=rem**count 
-            n2=n2//10
-        
-        if sum==temp:
+        res=0
+        while(n>0):
+            rem=n%10
+            res+=rem**3
+            n//=10
+        if res==temp:
             return True
-        else:
-            return False
+        return False
