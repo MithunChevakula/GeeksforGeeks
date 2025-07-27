@@ -1,6 +1,12 @@
 class Solution:
-    def reverse_exponentiation(self, n):
+    def reverseexponentiation(self, n):
         # code here
-        a=str(n)
-        a=int(a[::-1])
-        return n**a
+        rev=0
+        a=n
+        while(n!=0):
+            rem=n%10
+            rev=rev*10+rem
+            n//=10
+            
+        p=pow(a,rev)
+        return p
