@@ -1,5 +1,6 @@
-#Complete this function
+import math
 class Solution:
     def floorSqrt(self, n): 
-    #Your code here
-      return int(n**0.5)
+        # code here
+        return math.floor(math.sqrt(n))
+        
