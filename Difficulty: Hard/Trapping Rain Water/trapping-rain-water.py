@@ -1,17 +1,20 @@
 class Solution:
-    def maxWater(self, height):
-        if not height:
-            return 0
-        left, right = 0, len(height) - 1
-        left_max, right_max = height[left], height[right]
-        water_trapped = 0
-        while left < right:
-            if left_max < right_max:
-                left += 1
-                left_max = max(left_max, height[left])
-                water_trapped += left_max - height[left]
-            else:
-                right -= 1
-                right_max = max(right_max, height[right])
-                water_trapped += right_max - height[right]
-        return water_trapped
+    def maxWater(self, arr):
+        n = len(arr)
+        lmax = [0] * n
+        rmax = [0] * n
+        trpWater = 0
+        
+        lmax[0] = arr[0]
+        for i in range(1, n-1):
+            lmax[i] = max(arr[i], lmax[i-1])
+        
+        rmax[n-1] = arr[n-1]
+        for i in range(n-2, -1, -1):
+            rmax[i] = max(arr[i], rmax[i+1])
+            
+        for i in range(1, n-1):
+            waterLvl = min(lmax[i], rmax[i])
+            trpWater += waterLvl - arr[i]
+            
+        return trpWater
