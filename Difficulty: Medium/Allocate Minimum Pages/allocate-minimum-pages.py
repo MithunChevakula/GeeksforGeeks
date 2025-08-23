@@ -1,40 +1,36 @@
 class Solution:
-    
-    #Function to find minimum number of pages.
     def findPages(self, arr, k):
-        #code here
-        if len(arr) < k:
-            return -1
+        # code here
+        # binary search
         
-        # Helper function to check feasibility of allocation
-        def isPossible(arr, n, k, maxPages):
-            student_count = 1
-            current_pages = 0
-            
-            for pages in arr:
-                if current_pages + pages > maxPages:
-                    # Allocate books to next student
-                    student_count += 1
-                    current_pages = pages
-                    
-                    # If students required exceed k, return False
-                    if student_count > k:
-                        return False
+        def func(mid,k):
+            s=0
+            i=0
+            while i<len(arr) and k>0:
+                if s+arr[i]<=mid:
+                    s+=arr[i]
                 else:
-                    current_pages += pages
+                    k-=1
+                    s=arr[i]
+                i+=1
+            if i<len(arr):
+                return False
+            return k!=0
             
-            return True
+        if len(arr)<k:
+            return -1
+            
+        low=max(arr)
+        high=sum(arr)
         
-        # Binary search over the range of possible max pages
-        low, high = max(arr), sum(arr)
-        result = high
-        
-        while low <= high:
-            mid = (low + high) // 2
-            if isPossible(arr, len(arr), k, mid):
-                result = mid  # Update result and try for a smaller max
-                high = mid - 1
+        while low<=high:
+            mid=(low+high)//2
+            val=func(mid,k)
+            if val:
+                high=mid-1
             else:
-                low = mid + 1
+                low=mid+1
+                
+        return low
         
-        return result
+        
