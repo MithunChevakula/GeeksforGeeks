@@ -1,10 +1,8 @@
 class Solution:
-    #Function to reverse the queue.
     def reverseQueue(self, q):
-        # code here
-        stack=[]
-        while not q.empty():
-            stack.append(q.get())
-        while stack:
-            q.put(stack.pop())
+        l,r = 0, len(q)-1
+        while l < r:
+            q[l], q[r] = q[r], q[l]
+            l+=1
+            r-=1
         return q
